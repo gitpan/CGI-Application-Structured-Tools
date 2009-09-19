@@ -30,16 +30,16 @@ use English qw( -no_match_vars );
 use ExtUtils::Command qw( mkpath );
 use File::Basename;
 use File::Spec ();
-use Module::Starter::Simple;
+
 use HTML::Template;
 
 =head1 VERSION
 
-Version 0.002
+Version 0.003
 
 =cut
 
-our $VERSION = '0.002';
+our $VERSION = '0.003';
 
 =head1 DESCRIPTION
 
