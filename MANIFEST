@@ -6,6 +6,7 @@ Changes
 Makefile.PL
 lib/CGI/Application/Structured/Tools/Starter.pm
 scripts/cas-starter.pl
+lib/CGI/Application/Structured/Tools.pm
 lib/CGI/Application/Structured/Tools/templates/00-signature.t
 lib/CGI/Application/Structured/Tools/templates/01-load.t
 lib/CGI/Application/Structured/Tools/templates/boilerplate.t

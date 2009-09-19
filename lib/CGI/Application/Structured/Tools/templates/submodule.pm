@@ -8,11 +8,14 @@ use base '<tmpl_var main_module>';
 
 Template controller subclass for CGI::Application::Structured apps.
 
+=head1 ABSTRACT
+
+Template for consistent controller creation.
 
 =head1 DESCRIPTION
 
-Overview of functionality and purpose of
-web application module <tmpl_var module>...
+Provide an overview of functionality and purpose of
+web application controller here.
 
 =head1 METHODS
 
@@ -60,7 +63,7 @@ sub index: StartRunmode {
 
 =head3 example
 
-A stub for adding a runmode. Runmodes are declared with the ': Runmode' modifier.
+An example stub for adding a controller runmode. Runmodes are declared with the ': Runmode' modifier.
 NOTE: Only one method can be marked as 'StartRunmode'.
 
 =cut
@@ -103,8 +106,7 @@ your bug as I make changes.
 
 =head1 SEE ALSO
 
-L<CGI::Application>, L<Titanium>
-
+L<CGI::Application::Plugin::DBIC::Schema>, L<DBIx::Class>, L<CGI::Application::Structured>, L<CGI::Application::Structured::Tools>
 
 =head1 AUTHOR
 

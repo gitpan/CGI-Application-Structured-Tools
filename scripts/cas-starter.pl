@@ -2,18 +2,22 @@
 
 =head1 NAME
 
-cas-starter - creates a skeleton CGI::Application::Structured project
+cas-starter.pl - creates a skeleton CGI::Application::Structured project.
 
 =cut
+
+=head1 ABSTRACT
+
+Creates CGI::Application::Structured based applications.
 
 
 =head1 VERSION
 
-Version 0.001
+Version 0.002
 
 =cut
 
-our $VERSION = '0.001';
+our $VERSION = '0.002';
 
 use warnings;
 use strict;
@@ -98,15 +102,16 @@ Options:
 
 =head1 DESCRIPTION
 
-Sets up a working skeleton for an CGI::Application::Structured-based project packaged as a CPAN module. The script also generates:
- - a base controller class
- - an organized directory structure to contain your modules
- - a default Home module (subclass of base controller)
- - a default runmode for Home ('index') with a corresponding template
- - a default configuration for Template Toolkit
- - basic automated tests 
- - a helper script to generate controller subclasses and TT templates
- - a helper script to generate DBIx::Class schema and resultset classes for your database.
+Sets up a working skeleton for an CGI::Application::Structured-based project, packaged as a CPAN module. The script also generates:
+ 
+     - a base controller class
+     - an organized directory structure to contain your modules
+     - a default Home module (subclass of base controller)
+     - a default runmode for Home ('index') with a corresponding template
+     - a default configuration for Template Toolkit
+     - basic automated tests 
+     - a helper script to generate controller subclasses and TT templates
+     - a helper script to generate DBIx::Class schema and resultset classes for your database.
 
 
 By default the skeleton files can be found in the C<templates>
@@ -118,5 +123,6 @@ builders.
 =head TUTORIAL
 
 See L<CGI::Application::Structured> for a brief tutorial on using the helper scripts.
+
 =cut
 
