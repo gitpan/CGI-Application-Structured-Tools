@@ -35,11 +35,11 @@ use HTML::Template;
 
 =head1 VERSION
 
-Version 0.003
+Version 0.004
 
 =cut
 
-our $VERSION = '0.003';
+our $VERSION = '0.004';
 
 =head1 DESCRIPTION
 
@@ -474,8 +474,14 @@ sub create_mainmodule {
     my $self = shift;
 
     my @distroparts = @{ $self->{distroparts} };
-    my @distro_dirparts = @distroparts > 1? @distroparts[0..-2]: ();
-    my $distro_namepart = $distroparts[0] . '.pm';
+
+    # 
+    # For multi level main packages, separate out the path parts
+    # from the main module file name part.
+    #
+    my $last_inx = $#distroparts - 1;
+    my @distro_dirparts = @distroparts > 1? @distroparts[0..$last_inx]: ();
+    my $distro_namepart = $distroparts[-1] . '.pm';
 
     my @dirparts = ( $self->{basedir}, 'lib', @distro_dirparts);
     my $tdir = File::Spec->catdir(@dirparts);
@@ -489,7 +495,7 @@ sub create_mainmodule {
    
     my $fname =
       File::Spec->catfile( $self->{basedir}, 'lib',  @distro_dirparts, $distro_namepart );
-    
+    $DB::single=2;
     # need to delete the module starter default file for this customization
     if (-f $fname){unlink $fname;}
 
@@ -525,7 +531,7 @@ sub create_create_dbic_pl {
 
     # create the user script
     my $fname = File::Spec->catfile( $tdir, 'create_dbic_schema.pl' );
-    $DB::single = 2;
+
     $self->create_file( $fname, $self->create_create_dbic_guts() );
     $self->progress("Created $fname");
 

@@ -22,15 +22,21 @@ our $VERSION = '0.003';
 use warnings;
 use strict;
 
+# Provide a sane defailt
+use File::Basename;
+use File::Spec;
+use FindBin qw/$Bin/;
+
+use lib "$Bin/../lib";
+
+
 use Module::Starter qw(
         Module::Starter::Simple
         Module::Starter::Plugin::Template
         CGI::Application::Structured::Tools::Starter
 );
 
-# Provide a sane defailt
-use File::Basename;
-use File::Spec;
+
 unless ($ENV{MODULE_TEMPLATE_DIR}) {
     $ENV{MODULE_TEMPLATE_DIR} = 
         File::Spec->catdir(  dirname($INC{'CGI/Application/Structured/Tools/Starter.pm'}), 'templates' );
