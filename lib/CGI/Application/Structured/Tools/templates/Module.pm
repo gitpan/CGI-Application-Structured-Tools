@@ -82,7 +82,7 @@ sub cgiapp_init {
 
 	$self->dbic_config(
 	    {
-		schema       => '<tmpl_var main_module>::DB',
+		schema       => '<tmpl_var module>::DB',
 		connect_info => [
 		    $self->cfg('db_dsn'), 
 		    $self->cfg('db_user'),
