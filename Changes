@@ -1,5 +1,9 @@
 Revision history for Perl module Module-Starter-Plugin-Attanium
 
+0.007 Thu Oct 15 12:43:17 EDT 2009
+   change perl interpreter in t/001_load.t from system default to $^X, the interpreter that is running the test.
+     This was causing failure of test suite on some test systems.
+     
 0.006 Sat Sep 26 12:32:15 EDT 2009
    bug fix for subcontroller generation script for multi level main packages
 
