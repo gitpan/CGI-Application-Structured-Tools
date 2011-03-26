@@ -1,9 +1,14 @@
-Revision history for Perl module Module-Starter-Plugin-Attanium
+Revision history for Perl module CGI::Application::Structured::Tools
 
-0.007 Thu Oct 15 12:43:17 EDT 2009
-   change perl interpreter in t/001_load.t from system default to $^X, the interpreter that is running the test.
-     This was causing failure of test suite on some test systems.
-     
+0.008 Sat Mar 26 13:42:00 EDT 2011
+  fix bug in generation of schema name in application main cgi app module.
+    * moved schema name into config file 
+    * fixed bug (typo) in template variable name for schema name
+  removed experimental FCGI support
+  default config file location to 'config/config.pl' and remove need to export filename
+0.007 Tue Sep 28 19:13:18 EDT 2010
+  add support for FastCGI project template generation.
+
 0.006 Sat Sep 26 12:32:15 EDT 2009
    bug fix for subcontroller generation script for multi level main packages
 

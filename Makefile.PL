@@ -8,6 +8,7 @@ WriteMakefile(
     NAME         => 'CGI::Application::Structured::Tools',
     VERSION_FROM => 'lib/CGI/Application/Structured/Tools/Starter.pm',   # finds \$VERSION
     PREREQ_PM  => {
+        'CGI::Application::Structured' => 0.004,
 	'DBIx::Class::Schema::Loader' => 0,
 	'ExtUtils::Command'           => 0,
 	'File::Basename'              => 0,
@@ -25,7 +26,6 @@ WriteMakefile(
 	'Test::More'                  => 0,
 	'Test::Pod'                   => '1.22',
 	'Test::Pod::Coverage'         => '1.08',
-        'CGI::Application::Structured' => 0,
     },
     INSTALLDIRS => 'site',
     PL_FILES    => {},

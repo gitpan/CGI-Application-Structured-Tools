@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               CGI-Application-Structured-Tools
-version:            0.007
+version:            0.008
 abstract:           Development tools for CGI::Application::Structured
 author:
     - Gordon Van Amburg
@@ -11,7 +11,7 @@ configure_requires:
 build_requires:
     ExtUtils::MakeMaker:  0
 requires:
-    CGI::Application::Structured:  0
+    CGI::Application::Structured:  0.004
     DBIx::Class::Schema::Loader:  0
     ExtUtils::Command:    0
     File::Basename:       0
@@ -33,7 +33,7 @@ no_index:
     directory:
         - t
         - inc
-generated_by:       ExtUtils::MakeMaker version 6.54
+generated_by:       ExtUtils::MakeMaker version 6.56
 meta-spec:
     url:      http://module-build.sourceforge.net/META-spec-v1.4.html
     version:  1.4

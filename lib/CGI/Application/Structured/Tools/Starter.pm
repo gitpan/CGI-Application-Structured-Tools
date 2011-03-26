@@ -35,11 +35,11 @@ use HTML::Template;
 
 =head1 VERSION
 
-Version 0.006
+Version 0.008
 
 =cut
 
-our $VERSION = '0.007';
+our $VERSION = '0.008';
 
 =head1 DESCRIPTION
 
@@ -68,6 +68,7 @@ and renderer. (See C<templates> and C<renderer> below.)
 
 sub new {
     my ( $class, @opts ) = @_;
+    
     my $self = $class->SUPER::new(@opts);
 
     $self->{templates} = { $self->templates };
@@ -84,39 +85,40 @@ This method works as advertised in L<Module::Starter>.
 sub create_distro {
     my ( $class, @opts ) = @_;
 
+
     my $self = $class->new(@opts);
+
+
 
     # This plugin only works to create one module.  This is
     # hangover from borrowed code and should be fixed to remove
     # the impression that multiple modules can be created at once.
     my @modules = map { split /,/mx } @{ $self->{modules} };
+    
+    croak "No modules specified.\n" if ( !@modules );
 
-    if ( !@modules ) {
-        croak "No modules specified.\n";
-    }
+    croak "No modules specified.\n" unless ( @modules );
 
-    my $num_modules = scalar(@modules);
-    die "Only one module can be created, but $num_modules were attempted.\n"
-      if ( $num_modules > 1 );
+    die "Only one module can be created.\n"
+      unless( @modules == 1 );
 
-    for (@modules) {
-        if ( !/\A[a-z_]\w*(?:::[\w]+)*\Z/imx ) {
-            croak "Invalid module name: $_";
-        }
-    }
+    croak "Invalid module name: ". $modules[0]
+	if ( $modules[0] !~ /\A[a-z_]\w*(?:::[\w]+)*\Z/imx );
 
-    if ( !$self->{author} ) {
-        croak "Must specify an author\n";
-    }
-    if ( !$self->{email} ) {
-        croak "Must specify an email address\n";
-    }
+    
+    croak "Must specify an author\n"
+	unless ( $self->{author} );
+
+    croak "Must specify an email address\n"
+	unless ( $self->{email} );
+
     ( $self->{email_obfuscated} = $self->{email} ) =~ s/@/ at /mx;
 
     $self->{license} ||= 'perl';
 
     $self->{main_module} = $self->{modules}->[0];
-    if ( !$self->{distro} ) {
+
+    unless ( $self->{distro} ) {
         $self->{distro} = $self->{main_module};
         $self->{distro} =~ s/::/-/gmx;
     }
@@ -132,14 +134,16 @@ sub create_distro {
     # templatedir is used in config_pl_guts
     $self->{templatedir} = File::Spec->catdir('templates');
 
+    $self->{config_file} =
+      File::Spec->catfile( $self->{basedir}, "config", "config.pl" );
+
     my @files;
     push @files, $self->create_modules(@modules);
-
     push @files, $self->create_t(@modules);
     push @files, $self->create_tmpl();
+
     my %build_results = $self->create_build();
     push @files, @{ $build_results{files} };
-
     push @files, $self->create_Changes;
     push @files, $self->create_README( $build_results{instructions} );
     push @files, $self->create_perlcriticrc;
@@ -169,9 +173,16 @@ in the distribution.
 sub create_t {
     my ( $self, @modules ) = shift;
 
+    #
+    # 
+    #
     my %t_files = $self->t_guts(@modules);
 
-    my @files = map { $self->_create_t( $_, $t_files{$_} ) } keys %t_files;
+    my @files = map { 
+	$self->_create_t( $_, 
+			  $t_files{$_} 
+	    ) 
+    } keys %t_files;
 
     # This next part is for the static files dir t/www
     my @dirparts = ( $self->{basedir}, 't', 'www' );
@@ -382,7 +393,7 @@ sub create_config_pl {
         $self->progress("Created $tdir");
     }
 
-    my $fname = File::Spec->catfile( $tdir, 'config-dev.pl' );
+    my $fname = File::Spec->catfile( $tdir, 'config.pl' );
     $self->create_file( $fname, $self->config_pl_guts() );
     $self->progress("Created $fname");
 
@@ -410,8 +421,8 @@ sub create_create_pl {
     # template needs template_path not just template dir
     $self->{template_path} = File::Spec->rel2abs( $self->{templatedir} );
 
-    $self->{config_file} =
-      File::Spec->catfile( $self->{basedir}, "config", "config-test.pl" );
+#    $self->{config_file} =
+#      File::Spec->catfile( $self->{basedir}, "config", "config.pl" );
 
     # Store template directory
     my $fname = File::Spec->catfile( $tdir, 'create_controller.pl' );
@@ -581,6 +592,8 @@ sub create_create_dbic_guts {
 sub dispatch_guts {
     my $self = shift;
     my %options;
+    $self->{config_file} =
+      File::Spec->catfile( $self->{basedir}, "config", "config.pl" );
 
     my $template = $self->{templates}{'Dispatch.pm'};
     return $self->render( $template, \%options );
@@ -597,16 +610,18 @@ sub submodule_guts {
 
 sub mainmodule_guts {
     my $self = shift;
-    my %options;
+
     my $template = $self->{templates}{'Module.pm'};
-    return $self->render( $template, \%options );
+    return $self->render( $template, {} );
 }
 
 sub t_guts {
     my ( $self, @opts ) = @_;
+
     my %options;
     $options{modules}     = [@opts];
     $options{modulenames} = [];
+
     foreach ( @{ $options{modules} } ) {
         push @{ $options{module_pm_files} }, $self->_module_to_pm_file($_);
     }
@@ -730,7 +745,7 @@ Gordon Van Amburg, E<lt>vanamburg at cpan.orgE<gt>
 
 =head1 ACKNOWLEDGEMENT
 
-This module borrows heavily from <Module::Starter::Plugin::CGIApp> by 
+This module borrows heavily, is verily grafted from, <Module::Starter::Plugin::CGIApp> by 
 Jaldhar H. Vyas, E<lt>jaldhar at braincells.comE<gt>
 
 =head1 COPYRIGHT
@@ -740,7 +755,7 @@ under the same terms as Perl itself.
 
 =head1 SEE ALSO
 
-L<CGI::Application::Structured-starter>, L<CGI::Application::Structured>, L<Titanium>, L<CGI::Application>, L<Module::Starter::Plugin::CGIApp>
+L<CGI::Application::Structured-starter>, L<CGI::Application::Structured>, L<CGI::Application>, L<Module::Starter::Plugin::CGIApplication>
 
 =cut
 

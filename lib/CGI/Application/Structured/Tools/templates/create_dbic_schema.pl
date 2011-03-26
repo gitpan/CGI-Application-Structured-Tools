@@ -3,17 +3,14 @@ use strict;
 use warnings;
 use FindBin qw/$Bin/;
 use DBIx::Class::Schema::Loader qw/ make_schema_at /;
-
-
 use Config::Auto;
 use FindBin qw/$Bin/;
-
 use lib "$Bin/../lib";
 
 $| = 1;
 
 my $config = Config::Auto::parse( 
-	File::Spec->catfile("..","config","config-dev.pl"), format => "perl" 
+	File::Spec->catfile("..","config","config.pl"), format => "perl" 
 	);
 
 
@@ -54,9 +51,6 @@ The generated files, using the example database would look like this:
 
 =head1 AUTHOR
 
-    Gordon Van Amburg
-    CPAN ID: VANAMBURG
-    vanamburg at cpan.org
 
 =head1 COPYRIGHT
 

@@ -11,7 +11,7 @@ use base 'CGI::Application::Dispatch';
 sub dispatch_args {
 	return {
 		prefix      => <tmpl_var main_module>::C,
-		args_to_new =>{PARAMS =>{cfg_file => $ENV{CONFIG_FILE}}},
+		args_to_new =>{PARAMS =>{cfg_file => 'config/config.pl'}},
 		table       => [
 			''                   => {app => 'home'},
 			':app'               => {},

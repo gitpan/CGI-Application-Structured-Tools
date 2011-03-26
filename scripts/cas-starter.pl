@@ -29,19 +29,21 @@ use FindBin qw/$Bin/;
 
 use lib "$Bin/../lib";
 
+ @ARGV = grep { defined } @ARGV;
+
+ unless ($ENV{MODULE_TEMPLATE_DIR}) {
+     $ENV{MODULE_TEMPLATE_DIR} = 
+	 File::Spec->catdir(  
+	     dirname($INC{'CGI/Application/Structured/Tools/Starter.pm'}), 
+	     'templates' );
+ }
+
 
 use Module::Starter qw(
         Module::Starter::Simple
         Module::Starter::Plugin::Template
         CGI::Application::Structured::Tools::Starter
 );
-
-
-unless ($ENV{MODULE_TEMPLATE_DIR}) {
-    $ENV{MODULE_TEMPLATE_DIR} = 
-        File::Spec->catdir(  dirname($INC{'CGI/Application/Structured/Tools/Starter.pm'}), 'templates' );
-}
-
 use Module::Starter::App;
 Module::Starter::App->run;
 
