@@ -26,6 +26,7 @@ WriteMakefile(
 	'Test::More'                  => 0,
 	'Test::Pod'                   => '1.22',
 	'Test::Pod::Coverage'         => '1.08',
+        'Probe::Perl'                 => 0,
     },
     INSTALLDIRS => 'site',
     PL_FILES    => {},

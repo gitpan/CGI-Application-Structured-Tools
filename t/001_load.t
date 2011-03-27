@@ -9,7 +9,7 @@ use FindBin qw/$Bin/;
 use Cwd;
 use File::Glob;
 use strict;
-
+use Probe::Perl;
 
 use constant TEST_APP => "TestApp1823";
 use constant TEST_SUB_MOD=>"SubModXYZ";
@@ -58,7 +58,7 @@ ok (-f File::Spec->catfile($tdir, TEST_APP, "server.pl"), "server.pl was created
 # Verify that the major components were created.
 # -------------------------------------------------- #
 
-system($^X,"script/create_controller.pl","--name",TEST_SUB_MOD);
+system(Probe::Perl->find_perl_interpreter(),"script/create_controller.pl","--name",TEST_SUB_MOD);
 
 my $mod_name = TEST_SUB_MOD . '.pm';
 

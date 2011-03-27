@@ -1,4 +1,10 @@
 Revision history for Perl module CGI::Application::Structured::Tools
+0.010 Sun Mar 27 01:13:11 EDT 2011
+  replaced use of '$^X' with Probe::Perl to find interpreter to use in system call in t/001_load.t  it was suggested to use $^X in place of 'perl' for the purpose.  while that solution worked on my ubuntu boxes, it started failing in cpantesters (can't find Module::Install ...).  Probe::Perl was also suggested. Local testing is fine, so moving to cpantesters
+
+0.009
+  fixed regression in t/001_load.t which used 'perl' in place of $^X in system call.
+
 0.009
   fixed regression in t/001_load.t which used 'perl' in place of $^X in system call.
 0.008 Sat Mar 26 13:42:00 EDT 2011

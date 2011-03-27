@@ -35,11 +35,11 @@ use HTML::Template;
 
 =head1 VERSION
 
-Version 0.009
+Version 0.011
 
 =cut
 
-our $VERSION = '0.009';
+our $VERSION = '0.011';
 
 =head1 DESCRIPTION
 
@@ -154,6 +154,7 @@ sub create_distro {
     push @files, $self->create_create_dbic_pl;
     push @files, $self->create_create_pl;
     push @files, $self->create_server_pl;
+    push @files, $self->create_debug_sh;
     push @files, 'MANIFEST';
     $self->create_MANIFEST( grep { $_ ne 't/boilerplate.t' } @files );
 
@@ -373,7 +374,24 @@ sub create_server_pl {
     return 'server.pl';
 }
 
-=head2 create_server_pl ()
+
+=head2 create_debug_sh ()
+
+This method creates C<debug.sh> in the distribution's root directory. Starts werver with environment set to display ::Plugin::DebugScreen on error
+
+=cut
+
+sub create_debug_sh {
+    my $self = shift;
+
+    my $fname = File::Spec->catfile( $self->{basedir}, 'debug.sh' );
+    $self->create_file( $fname, $self->debug_sh_guts() );
+    $self->progress("Created $fname");
+
+    return 'debug.sh';
+}
+
+=head2 create_config_pl ()
 
 This method creates C<config-test.pl> in the distribution's root/config directory.
 
@@ -397,7 +415,7 @@ sub create_config_pl {
     $self->create_file( $fname, $self->config_pl_guts() );
     $self->progress("Created $fname");
 
-    return 'server.pl';
+    return 'config.pl';
 }
 
 =head2 create_create_pl ()
@@ -503,7 +521,7 @@ sub create_mainmodule {
    
     my $fname =
       File::Spec->catfile( $self->{basedir}, 'lib',  @distro_dirparts, $distro_namepart );
-    $DB::single=2;
+
     # need to delete the module starter default file for this customization
     if (-f $fname){unlink $fname;}
 
@@ -607,9 +625,7 @@ sub submodule_guts {
 
 sub mainmodule_guts {
     my $self = shift;
-
-    my $template = $self->{templates}{'Module.pm'};
-    return $self->render( $template, {} );
+    return $self->render($self->{templates}{'Module.pm'}, {});
 }
 
 sub t_guts {
@@ -672,59 +688,43 @@ sub tmpl_guts {
 
 sub Changes_guts {   
     my $self = shift;
-    my %options;
-
-    my $template = $self->{templates}{Changes};
-    return $self->render( $template, \%options );
+    return $self->render( $self->{templates}{Changes}, {});
 }
 
 
 sub MANIFEST_SKIP_guts {
     my $self = shift;
-    my %options;
-
-    my $template = $self->{templates}{'MANIFEST.SKIP'};
-    return $self->render( $template, \%options );
+    return $self->render($self->{templates}{'MANIFEST.SKIP'}, {});
 }
 
 
 sub perlcriticrc_guts {
     my $self = shift;
-    my %options;
-
-    my $template = $self->{templates}{perlcriticrc};
-    return $self->render( $template, \%options );
+    return $self->render( $self->{templates}{perlcriticrc},{});
 }
 
 
 sub server_pl_guts {
     my $self = shift;
-    my %options;
+    return $self->render( $self->{templates}{'server.pl'},{});
+}
 
-    my $template = $self->{templates}{'server.pl'};
-    return $self->render( $template, \%options );
+
+sub debug_sh_guts {
+    my $self = shift;
+    return $self->render( $self->{templates}{'debug.sh'}, {});
 }
 
 
 sub config_pl_guts {
     my $self = shift;
-
-    # currently no options, but this could change
-    my %options;
-
-    my $template = $self->{templates}{'config-dev.pl'};
-    return $self->render( $template, \%options );
+    return $self->render( $self->{templates}{'config-dev.pl'},{});
 }
 
 
 sub create_pl_guts {
     my $self = shift;
-
-    # currently no options, but this could change
-    my %options;
-
-    my $template = $self->{templates}{'create_controller.pl'};
-    return $self->render( $template, \%options );
+    return $self->render($self->{templates}{'create_controller.pl'}, {} );
 }
 
 
