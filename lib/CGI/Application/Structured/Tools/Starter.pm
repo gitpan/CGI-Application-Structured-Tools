@@ -35,11 +35,11 @@ use HTML::Template;
 
 =head1 VERSION
 
-Version 0.008
+Version 0.009
 
 =cut
 
-our $VERSION = '0.008';
+our $VERSION = '0.009';
 
 =head1 DESCRIPTION
 
@@ -420,9 +420,6 @@ sub create_create_pl {
 
     # template needs template_path not just template dir
     $self->{template_path} = File::Spec->rel2abs( $self->{templatedir} );
-
-#    $self->{config_file} =
-#      File::Spec->catfile( $self->{basedir}, "config", "config.pl" );
 
     # Store template directory
     my $fname = File::Spec->catfile( $tdir, 'create_controller.pl' );

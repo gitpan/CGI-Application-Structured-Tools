@@ -58,7 +58,7 @@ ok (-f File::Spec->catfile($tdir, TEST_APP, "server.pl"), "server.pl was created
 # Verify that the major components were created.
 # -------------------------------------------------- #
 
-system("perl","script/create_controller.pl","--name",TEST_SUB_MOD);
+system($^X,"script/create_controller.pl","--name",TEST_SUB_MOD);
 
 my $mod_name = TEST_SUB_MOD . '.pm';
 

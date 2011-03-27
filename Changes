@@ -1,5 +1,6 @@
 Revision history for Perl module CGI::Application::Structured::Tools
-
+0.009
+  fixed regression in t/001_load.t which used 'perl' in place of $^X in system call.
 0.008 Sat Mar 26 13:42:00 EDT 2011
   fix bug in generation of schema name in application main cgi app module.
     * moved schema name into config file 

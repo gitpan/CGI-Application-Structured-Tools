@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               CGI-Application-Structured-Tools
-version:            0.008
+version:            0.009
 abstract:           Development tools for CGI::Application::Structured
 author:
     - Gordon Van Amburg
