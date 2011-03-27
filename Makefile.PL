@@ -8,7 +8,7 @@ WriteMakefile(
     NAME         => 'CGI::Application::Structured::Tools',
     VERSION_FROM => 'lib/CGI/Application/Structured/Tools/Starter.pm',   # finds \$VERSION
     PREREQ_PM  => {
-        'CGI::Application::Structured' => 0.004,
+        'CGI::Application::Structured' => 0.006,
 	'DBIx::Class::Schema::Loader' => 0,
 	'ExtUtils::Command'           => 0,
 	'File::Basename'              => 0,
