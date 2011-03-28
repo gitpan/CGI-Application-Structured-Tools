@@ -35,11 +35,11 @@ use HTML::Template;
 
 =head1 VERSION
 
-Version 0.012
+Version 0.013
 
 =cut
 
-our $VERSION = '0.012';
+our $VERSION = '0.013';
 
 =head1 DESCRIPTION
 
@@ -369,6 +369,7 @@ sub create_server_pl {
 
     my $fname = File::Spec->catfile( $self->{basedir}, 'server.pl' );
     $self->create_file( $fname, $self->server_pl_guts() );
+    chmod 0755, ($fname);
     $self->progress("Created $fname");
 
     return 'server.pl';
@@ -386,6 +387,7 @@ sub create_debug_sh {
 
     my $fname = File::Spec->catfile( $self->{basedir}, 'debug.sh' );
     $self->create_file( $fname, $self->debug_sh_guts() );
+    chmod 0755, ($fname);
     $self->progress("Created $fname");
 
     return 'debug.sh';
@@ -442,6 +444,7 @@ sub create_create_pl {
     # Store template directory
     my $fname = File::Spec->catfile( $tdir, 'create_controller.pl' );
     $self->create_file( $fname, $self->create_pl_guts() );
+    chmod 0755, ($fname);
     $self->progress("Created $fname");
 
     return 'script/create_controller.pl';
@@ -557,8 +560,8 @@ sub create_create_dbic_pl {
 
     # create the user script
     my $fname = File::Spec->catfile( $tdir, 'create_dbic_schema.pl' );
-
     $self->create_file( $fname, $self->create_create_dbic_guts() );
+    chmod 0755, ($fname);
     $self->progress("Created $fname");
 
     return 'script/create_dbic_schema.pl';

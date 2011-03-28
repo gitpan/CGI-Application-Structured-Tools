@@ -1,4 +1,10 @@
 Revision history for Perl module CGI::Application::Structured::Tools
+0.013 Sun Mar 27 22:14:41 EDT 2011
+  - include debug.sh in MANIFEST so it is distributed
+  - missed a replacement of "perl" to Probe::Perl->find_perl_interpreter() last time.  all should be covered now.
+  - make all scripts executable (755) so interpreter doesn't need to be called on CLI.
+  - add test for existence of generated debug.sh
+
 0.012 Sun Mar 27 11:47:54 EDT 2011
   this version generates bash script to start CAS witn debug screen plugin.  requires CAS 0.006, which itself requires Plugin::DebugScreen
 

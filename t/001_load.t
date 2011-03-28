@@ -2,7 +2,7 @@
 
 # t/001_load.t - check module loading and create testing directory
 
-use Test::More tests => 11;
+use Test::More tests => 12;
 use File::Temp qw/tempfile tempdir/;
 use File::Spec;
 use FindBin qw/$Bin/;
@@ -29,7 +29,7 @@ my $as_pl = File::Spec->catfile("$Bin","..","scripts","cas-starter.pl");
 
 chdir($tdir);
 
-system("perl",$as_pl,"--module",TEST_APP ,"--author","testauth","--email",'test@any.com') == 0 or die "cannot create test application";
+system(Probe::Perl->find_perl_interpreter(), $as_pl,"--module",TEST_APP ,"--author","testauth","--email",'test@any.com') == 0 or die "cannot create test application";
 
 chdir(File::Spec->catdir($tdir, TEST_APP));
 
@@ -50,6 +50,8 @@ ok (-f File::Spec->catfile($tdir, TEST_APP,"script","create_dbic_schema.pl"), "c
 ok (-f File::Spec->catfile($tdir, TEST_APP,"script","create_controller.pl"), "create_controller.pl was created.");
 
 ok (-f File::Spec->catfile($tdir, TEST_APP, "server.pl"), "server.pl was created.");
+
+ok (-f File::Spec->catfile($tdir, TEST_APP, "debug.sh"), "debug.sh was created.");
 
 
 

@@ -13,6 +13,7 @@ lib/CGI/Application/Structured/Tools/templates/boilerplate.t
 lib/CGI/Application/Structured/Tools/templates/Build.PL
 lib/CGI/Application/Structured/Tools/templates/Changes
 lib/CGI/Application/Structured/Tools/templates/config-dev.pl
+lib/CGI/Application/Structured/Tools/templates/debug.sh
 lib/CGI/Application/Structured/Tools/templates/create_controller.pl
 lib/CGI/Application/Structured/Tools/templates/create_dbic_schema.pl
 lib/CGI/Application/Structured/Tools/templates/DB.pm
