@@ -35,3 +35,4 @@ lib/CGI/Application/Structured/Tools/templates/test-app.t
 t/001_load.t
 t/99_pod.t
 META.yml                                 Module meta-data (added by MakeMaker)
+META.json                                Module JSON meta-data (added by MakeMaker)

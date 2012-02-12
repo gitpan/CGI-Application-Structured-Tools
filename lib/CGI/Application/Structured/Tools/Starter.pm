@@ -35,11 +35,11 @@ use HTML::Template;
 
 =head1 VERSION
 
-Version 0.013
+Version 0.014
 
 =cut
 
-our $VERSION = '0.013';
+our $VERSION = '0.014';
 
 =head1 DESCRIPTION
 
@@ -67,14 +67,14 @@ and renderer. (See C<templates> and C<renderer> below.)
 =cut
 
 sub new {
-    my ( $class, @opts ) = @_;
+     my ( $class, @opts ) = @_;
     
-    my $self = $class->SUPER::new(@opts);
+     my $self = $class->SUPER::new(@opts);
 
-    $self->{templates} = { $self->templates };
-    $self->{renderer}  = $self->renderer;
-    return bless $self => $class;
-}
+     $self->{templates} = { $self->templates };
+     $self->{renderer}  = $self->renderer;
+     return bless $self => $class;
+ }
 
 =head2 create_distro ( %args ) 
 
@@ -83,10 +83,10 @@ This method works as advertised in L<Module::Starter>.
 =cut
 
 sub create_distro {
-    my ( $class, @opts ) = @_;
+    my ( $either, @opts ) = @_;
 
-
-    my $self = $class->new(@opts);
+    ( ref $either ) or $either = $either->new( @_ );
+    my $self = $either;
 
 
 
@@ -156,7 +156,14 @@ sub create_distro {
     push @files, $self->create_server_pl;
     push @files, $self->create_debug_sh;
     push @files, 'MANIFEST';
-    $self->create_MANIFEST( grep { $_ ne 't/boilerplate.t' } @files );
+    $self->create_MANIFEST( sub{
+	my @files2 = 
+	my $file = File::Spec->catfile( $self->{basedir}, 'MANIFEST' );
+	open my $fh, '>', $file or die "Can't open file $file: $!\n";
+	map{print $fh "$_\n"} grep { $_ ne 't/boilerplate.t' } @files;    
+	close $fh or die "Can't close file $file: $!\n";	
+			    }
+	);
 
     return;
 }
