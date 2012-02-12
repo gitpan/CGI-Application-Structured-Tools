@@ -1,4 +1,8 @@
 Revision history for Perl module CGI::Application::Structured::Tools
+0.015 Sun Feb 12 15:47:02 EST 2012
+  -  Update meta.yml and Changes for changes in 0.014
+0.014 Sun Feb 12 15:47:02 EST 2012w
+  - Update Starter.pm to handle changes in Module::Starter::Plugin behviour
 0.013 Sun Mar 27 22:14:41 EDT 2011
   - include debug.sh in MANIFEST so it is distributed
   - missed a replacement of "perl" to Probe::Perl->find_perl_interpreter() last time.  all should be covered now.
